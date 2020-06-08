@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView{
 
     MainActivityPresenter presenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

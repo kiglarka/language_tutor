@@ -6,10 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
     
     <style name="CustomFont" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/custom_font</item>
     </style>
+
 
 </resources>
