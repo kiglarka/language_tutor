@@ -1,10 +1,12 @@
-package com.codecool.languagetutor;
+package com.codecool.languagetutor.newword;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class WordListActivity extends AppCompatActivity {
+import com.codecool.languagetutor.R;
+
+public class NewWordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
