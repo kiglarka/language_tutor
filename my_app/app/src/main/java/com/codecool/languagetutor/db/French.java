@@ -12,12 +12,10 @@ public class French {
 
     @PrimaryKey
     @NonNull
-    private UUID id;
     private String localWord;
     private String translation;
 
-    public French(@NonNull UUID id, String localWord, String translation) {
-        this.id = UUID.randomUUID();
+    public French(@NonNull String localWord, String translation) {
         this.localWord = localWord;
         this.translation = translation;
     }
