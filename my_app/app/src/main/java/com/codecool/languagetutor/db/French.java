@@ -5,8 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.UUID;
-
 @Entity (tableName = "french_table")
 public class French {
 
@@ -20,6 +18,7 @@ public class French {
         this.translation = translation;
     }
 
+    @NonNull
     public String getLocalWord() {
         return localWord;
     }

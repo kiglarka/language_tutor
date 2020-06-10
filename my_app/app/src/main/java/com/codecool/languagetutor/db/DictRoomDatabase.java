@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.ExecutorService;
@@ -18,7 +17,7 @@ public abstract class DictRoomDatabase extends RoomDatabase {
     public abstract FrenchDao frenchDao();
 
 
-    private static DictRoomDatabase.Callback sDictRoomDbCallback = new DictRoomDatabase.Callback() {
+    private static RoomDatabase.Callback sDictRoomDbCallback = new RoomDatabase.Callback() {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
@@ -28,6 +27,14 @@ public abstract class DictRoomDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 // Populate the database in the background.
                 FrenchDao dao = INSTANCE.frenchDao();
+
+                French french = new French("man", "homme");
+                dao.insert(french);
+                french = new French("woman", "femme");
+                dao.insert(french);
+
+
+
             });
         }
     };
