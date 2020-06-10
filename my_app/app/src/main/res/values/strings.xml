@@ -10,4 +10,5 @@
     <string name="sample_text">Sample Text</string>
     <string name="please_enter_a_new_word_pair">Please enter a new word pair</string>
     <string name="save">Save</string>
+    <string name="short_app_name">Tutor</string>
 </resources>
