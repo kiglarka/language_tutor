@@ -6,12 +6,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/granny_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".quiz_layout.QuizActivity"></activity>
         <activity android:name=".newword.NewWordActivity"></activity>
-        <activity android:name=".QuizActivity" />
         <activity android:name=".myword.MyWordActivity" />
         <activity android:name=".ResultHistoryActivity" />
         <activity android:name=".main_activity.MainActivity">
