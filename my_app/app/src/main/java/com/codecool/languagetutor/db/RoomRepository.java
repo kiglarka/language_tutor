@@ -23,6 +23,7 @@ public class RoomRepository implements FrenchRepository {
         DictRoomDatabase.databaseWriteExecutor.execute(() -> db.frenchDao().insert(french));
     }
 
+
     @Override
     public List<French> getAllFrench() {
         try {

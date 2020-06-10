@@ -2,4 +2,5 @@
     <string name="app_name">Language Tutor</string>
     <string name="add_new">Add new</string>
     <string name="my_words">My Words</string>
+    <string name="sample_text">Sample Text</string>
 </resources>

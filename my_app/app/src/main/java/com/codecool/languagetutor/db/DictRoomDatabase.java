@@ -17,7 +17,7 @@ public abstract class DictRoomDatabase extends RoomDatabase {
     public abstract FrenchDao frenchDao();
 
 
-    private static RoomDatabase.Callback sDictRoomDbCallback = new RoomDatabase.Callback() {
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
@@ -51,7 +51,7 @@ public abstract class DictRoomDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             DictRoomDatabase.class, "dict_database")
-                            .addCallback(sDictRoomDbCallback)
+                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }

@@ -1,23 +1,23 @@
 package com.codecool.languagetutor.newword;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.codecool.languagetutor.R;
-import com.codecool.languagetutor.db.DictRoomDatabase;
-import com.codecool.languagetutor.db.French;
-import com.codecool.languagetutor.db.RoomRepository;
 
-import java.util.List;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class NewWordActivity extends AppCompatActivity implements NewWordContract {
 
-    private DictRoomDatabase database;
-    private RoomRepository roomRepository;
-    private List<French> frenchDict;
-
-
+    @BindView(R.id.btn_add_new_word)
+    Button buttonNewWord;
+    @BindView(R.id.show_dict)
+    TextView showTextView;
 
     NewWordPresenter presenter;
 
@@ -25,29 +25,26 @@ public class NewWordActivity extends AppCompatActivity implements NewWordContrac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newword);
+        ButterKnife.bind(this);
 
         presenter = new NewWordPresenter(this);
         presenter.onAttach(this);
 
+        showTextView.setText(presenter.getAllFrench().toString());
 
 
-        //getFrench();
 
     }
 
-    private void getFrench() {
-        database = DictRoomDatabase.getDatabase(this);
-        roomRepository = new RoomRepository(this);
-        frenchDict = roomRepository.getAllFrench();
-    }
+
 
     @Override
     public void successfullySaved() {
-
+        Toast.makeText(this,"Word successfully saved", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void successfullyLoaded() {
-
+        Toast.makeText(this,presenter.getAllFrench().toString(),Toast.LENGTH_LONG).show();
     }
 }
