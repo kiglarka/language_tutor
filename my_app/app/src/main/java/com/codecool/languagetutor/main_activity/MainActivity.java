@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.codecool.languagetutor.R;
-import com.codecool.languagetutor.newword.NewWordActivity;
+import com.codecool.languagetutor.myword.MyWordActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         buttonMyWords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NewWordActivity.class);
+                Intent intent = new Intent(MainActivity.this, MyWordActivity.class);
                 startActivity(intent);
             }
         });

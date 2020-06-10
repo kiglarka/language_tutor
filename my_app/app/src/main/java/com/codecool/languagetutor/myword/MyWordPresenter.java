@@ -1,4 +1,4 @@
-package com.codecool.languagetutor.newword;
+package com.codecool.languagetutor.myword;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,13 +8,13 @@ import com.codecool.languagetutor.db.RoomRepository;
 
 import java.util.List;
 
-public class NewWordPresenter<V extends NewWordContract> {
+public class MyWordPresenter<V extends MyWordContract> {
 
     V view;
     RoomRepository roomRepository;
     private List<French> allFrench;
 
-    public NewWordPresenter(Context context) {
+    public MyWordPresenter(Context context) {
         roomRepository = new RoomRepository(context);
         // load DB
         this.allFrench = roomRepository.getAllFrench();

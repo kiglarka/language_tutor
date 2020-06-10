@@ -1,4 +1,4 @@
-package com.codecool.languagetutor.newword;
+package com.codecool.languagetutor.myword;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -12,30 +12,28 @@ import com.codecool.languagetutor.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewWordActivity extends AppCompatActivity implements NewWordContract {
+public class MyWordActivity extends AppCompatActivity implements MyWordContract {
 
     @BindView(R.id.btn_add_new_word)
     Button buttonNewWord;
     @BindView(R.id.show_dict)
     TextView showTextView;
 
-    NewWordPresenter presenter;
+    MyWordPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newword);
+        setContentView(R.layout.activity_myword);
         ButterKnife.bind(this);
 
-        presenter = new NewWordPresenter(this);
+        presenter = new MyWordPresenter(this);
         presenter.onAttach(this);
 
         showTextView.setText(presenter.getAllFrench().toString());
 
 
-
     }
-
 
 
     @Override
