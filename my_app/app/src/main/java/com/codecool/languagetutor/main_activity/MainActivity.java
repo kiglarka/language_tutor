@@ -1,12 +1,16 @@
 package com.codecool.languagetutor.main_activity;
 
 import android.content.Intent;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.codecool.languagetutor.quiz_layout.QuizActivity;
 import com.codecool.languagetutor.R;
 import com.codecool.languagetutor.myword.MyWordActivity;
 
@@ -28,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         ButterKnife.bind(this);
 
         presenter = new MainActivityPresenter();
+        Intent intent = new Intent(this, QuizActivity.class);
+        startActivity(intent);
 
         setClickListenerOnMyWordsButton();
 
