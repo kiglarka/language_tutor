@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.codecool.languagetutor.R;
+import com.codecool.languagetutor.db.French;
 import com.codecool.languagetutor.myword.newword.NewWordActivity;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +35,9 @@ public class MyWordActivity extends AppCompatActivity implements MyWordContract 
         presenter = new MyWordPresenter(this);
         presenter.onAttach(this);
 
-        showTextView.setText(presenter.getAllFrench().toString());
+        //presenter.loadAllWords();
+
+        //showTextView.setText(presenter.listAllWords().toString());
 
         setClickListenerOnNewWordButton();
 
@@ -49,17 +53,19 @@ public class MyWordActivity extends AppCompatActivity implements MyWordContract 
         });
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
-        showTextView.setText(presenter.getAllFrench().toString());
-
+        presenter.loadAllWords();
 
     }
 
 
+
+
     @Override
-    public void successfullyLoaded() {
-        Toast.makeText(this,presenter.getAllFrench().toString(),Toast.LENGTH_LONG).show();
+    public void successfullyLoaded(List<French> frenches) {
+        showTextView.setText(frenches.toString());
     }
 }
