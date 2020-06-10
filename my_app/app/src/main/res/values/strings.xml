@@ -3,4 +3,6 @@
     <string name="add_new">Add new</string>
     <string name="my_words">My Words</string>
     <string name="sample_text">Sample Text</string>
+    <string name="please_enter_a_new_word_pair">Please enter a new word pair</string>
+    <string name="save">Save</string>
 </resources>

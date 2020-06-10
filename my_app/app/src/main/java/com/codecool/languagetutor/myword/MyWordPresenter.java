@@ -1,7 +1,6 @@
 package com.codecool.languagetutor.myword;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import com.codecool.languagetutor.db.French;
 import com.codecool.languagetutor.db.RoomRepository;
@@ -26,10 +25,6 @@ public class MyWordPresenter<V extends MyWordContract> {
 
     void onAttach(V view){ this.view = view; }
     void onDetach() { this.view = null; }
-
-    void saveWord(French french){
-        new SaveWordAsyncTask().execute(french);
-    }
 
     /*
     public List<French> listAllWords(){
@@ -60,18 +55,4 @@ public class MyWordPresenter<V extends MyWordContract> {
 
      */
 
-    private class SaveWordAsyncTask extends AsyncTask<French,Void,Void> {
-
-        @Override
-        protected Void doInBackground(French... frenches) {
-            roomRepository.insert(frenches[0]);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            view.successfullySaved();
-        }
-    }
 }

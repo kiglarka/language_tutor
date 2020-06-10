@@ -1,6 +1,8 @@
 package com.codecool.languagetutor.myword;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -8,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.codecool.languagetutor.R;
+import com.codecool.languagetutor.myword.newword.NewWordActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,14 +35,28 @@ public class MyWordActivity extends AppCompatActivity implements MyWordContract 
 
         showTextView.setText(presenter.getAllFrench().toString());
 
+        setClickListenerOnNewWordButton();
 
     }
 
+    private void setClickListenerOnNewWordButton() {
+        buttonNewWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyWordActivity.this, NewWordActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 
     @Override
-    public void successfullySaved() {
-        Toast.makeText(this,"Word successfully saved", Toast.LENGTH_SHORT).show();
+    protected void onResume() {
+        super.onResume();
+        showTextView.setText(presenter.getAllFrench().toString());
+
+
     }
+
 
     @Override
     public void successfullyLoaded() {
