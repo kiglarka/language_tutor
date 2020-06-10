@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".quiz_layout.QuizActivity"></activity>
-        <activity android:name=".myword.newword.NewWordActivity"></activity>
+        <activity android:name=".newword.NewWordActivity"></activity>
         <activity android:name=".QuizActivity" />
         <activity android:name=".myword.MyWordActivity" />
         <activity android:name=".ResultHistoryActivity" />

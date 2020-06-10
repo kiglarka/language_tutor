@@ -1,4 +1,4 @@
-package com.codecool.languagetutor.myword.newword;
+package com.codecool.languagetutor.newword;
 
 public interface NewWordContract {
     void successfullySaved();

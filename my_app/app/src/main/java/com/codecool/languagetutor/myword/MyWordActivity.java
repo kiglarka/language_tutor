@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.codecool.languagetutor.R;
 import com.codecool.languagetutor.db.French;
-import com.codecool.languagetutor.myword.newword.NewWordActivity;
+import com.codecool.languagetutor.newword.NewWordActivity;
 
 import java.util.List;
 

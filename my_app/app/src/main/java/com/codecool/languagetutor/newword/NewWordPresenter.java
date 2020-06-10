@@ -1,4 +1,4 @@
-package com.codecool.languagetutor.myword.newword;
+package com.codecool.languagetutor.newword;
 
 import android.content.Context;
 import android.os.AsyncTask;

@@ -1,4 +1,4 @@
-package com.codecool.languagetutor.myword.newword;
+package com.codecool.languagetutor.newword;
 
 import android.os.Bundle;
 import android.view.View;
