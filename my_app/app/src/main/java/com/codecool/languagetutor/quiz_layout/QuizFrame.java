@@ -18,16 +18,7 @@ public class QuizFrame extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View customView = inflater.inflate(R.layout.language_chooser_fragment, container,false);
-        customView.findViewById(R.id.btn_eng).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                QuizActivity activity = (QuizActivity)QuizFrame.this.getActivity();
-                activity.setStatus(QuizActivity.ENGLISH);
-            }
-        });
+        View customView = inflater.inflate(R.layout.question_fragment, container,false);
         return customView;
     }
-
-
 }
