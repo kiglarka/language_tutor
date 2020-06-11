@@ -28,10 +28,11 @@ public abstract class DictRoomDatabase extends RoomDatabase {
                 // Populate the database in the background.
                 FrenchDao dao = INSTANCE.frenchDao();
 
+                /*
                 French french = new French("man", "homme");
                 dao.insert(french);
                 french = new French("woman", "femme");
-                dao.insert(french);
+                dao.insert(french);*/
 
 
 
