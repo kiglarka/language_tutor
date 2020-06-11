@@ -5,4 +5,7 @@
     <color name="colorAccent">#8DC794</color>
     <color name="lightGray">#F5F5F5</color>
     <color name="red">#CB8A8A</color>
+    <color name="sandstone">#F4CC70</color>
+    <color name="burtnOrange">#DE7A22</color>
+    <color name="textColor">#F4F4F4</color>
 </resources>

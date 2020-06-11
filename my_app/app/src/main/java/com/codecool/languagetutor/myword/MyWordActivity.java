@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.codecool.languagetutor.R;
 import com.codecool.languagetutor.db.French;
@@ -21,8 +23,9 @@ public class MyWordActivity extends AppCompatActivity implements MyWordContract 
 
     @BindView(R.id.btn_add_new_word)
     Button buttonNewWord;
-    @BindView(R.id.show_dict)
-    TextView showTextView;
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     MyWordPresenter presenter;
 
@@ -62,6 +65,9 @@ public class MyWordActivity extends AppCompatActivity implements MyWordContract 
 
     @Override
     public void successfullyLoaded(List<French> frenches) {
-        showTextView.setText(frenches.toString());
+       // showTextView.setText(frenches.toString());
+        MyWordAdapter adapter = new MyWordAdapter(this, frenches);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
