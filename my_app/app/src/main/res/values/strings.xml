@@ -2,7 +2,7 @@
     <string name="app_name">Language Tutor</string>
     <string name="english">English</string>
     <string name="choose_the_language_of_the_quiz">Choose the language of the quiz!</string>
-    <string name="france">France</string>
+    <string name="french">French</string>
     <string name="question">Question</string>
     <string name="submit_btn_txt">Submit</string>
     <string name="add_new">Add new</string>
