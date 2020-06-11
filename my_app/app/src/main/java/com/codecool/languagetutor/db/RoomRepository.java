@@ -9,7 +9,6 @@ public class RoomRepository {
     private FrenchDao frenchDao;
     private HistoryDao historyDao;
 
-
     public RoomRepository(Context context) {
         this.frenchDao = DictRoomDatabase.getDatabase(context).frenchDao();
         this.historyDao = DictRoomDatabase.getDatabase(context).historyDao();
@@ -29,6 +28,10 @@ public class RoomRepository {
 
     public List<History> getAllHistory() {
         return historyDao.getAllHistory();
+    }
+
+    public List<French> getAllWordsExcept(int id){
+        return frenchDao.getWordsExcept(id);
     }
 
 }

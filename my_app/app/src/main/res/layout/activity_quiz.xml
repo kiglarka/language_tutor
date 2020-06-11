@@ -5,55 +5,60 @@
     tools:context=".quiz_layout.QuizActivity"
     style="@style/default_parent">
 
+    <FrameLayout
+        android:id="@+id/quiz_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/progress"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <FrameLayout
+        android:id="@+id/wrong_answer_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/progress"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/quantity_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/progress"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+        android:scaleY="5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:max="100"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:progress="50" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/question"
-        android:id="@+id/question"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        app:layout_constraintRight_toRightOf="parent"
-        android:textSize="25sp"
-        android:layout_marginTop="25sp"/>
+        app:layout_constraintTop_toTopOf="@id/progress"
+        app:layout_constraintBottom_toBottomOf="@id/progress"
+        app:layout_constraintLeft_toLeftOf="@id/progress"
+        app:layout_constraintRight_toRightOf="@id/progress"
+        tools:text="%"
+        android:id="@+id/test"/>
 
-    <RadioGroup
-        android:id="@+id/radio_group"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/question"
-        android:layout_marginTop="100sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <RadioButton
-            tools:text="Answer 1"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Answer 2"/>
-
-        <RadioButton
-            tools:text="Answer 3"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Answer 4"/>
-    </RadioGroup>
-
-    <Button android:id="@+id/submit_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/submit_btn_txt"
-        app:layout_constraintTop_toBottomOf="@id/radio_group"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="20sp"
-        android:onClick="onSubmitClick"
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>
