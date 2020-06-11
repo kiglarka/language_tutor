@@ -16,4 +16,5 @@
     <string name="wrong_answer">Wrong answer!</string>
     <string name="the_good_solution_is">The good solution is:</string>
     <string name="ok">Don\'t slap me!</string>
+    <string name="quantity_btn">OK</string>
 </resources>

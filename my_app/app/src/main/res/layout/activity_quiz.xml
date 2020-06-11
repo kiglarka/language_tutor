@@ -6,9 +6,10 @@
     style="@style/default_parent">
 
     <FrameLayout
+        android:id="@+id/quiz_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/quiz_fragment"
+        tools:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/progress"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -16,14 +17,25 @@
         />
 
     <FrameLayout
+        android:id="@+id/wrong_answer_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/wrong_answer_fragment"
-        tools:background="@color/colorPrimary"
+        tools:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/progress"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/quantity_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/progress"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 
     <ProgressBar
         android:id="@+id/progress"
@@ -47,5 +59,6 @@
         app:layout_constraintRight_toRightOf="@id/progress"
         tools:text="%"
         android:id="@+id/test"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

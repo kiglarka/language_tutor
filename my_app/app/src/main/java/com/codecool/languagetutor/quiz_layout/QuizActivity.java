@@ -17,6 +17,7 @@ import com.codecool.languagetutor.quiz_layout.async_tasks.AnswerGetter;
 import com.codecool.languagetutor.quiz_layout.async_tasks.DatabaseGetter;
 import com.codecool.languagetutor.quiz_layout.async_tasks.SaveResult;
 import com.codecool.languagetutor.quiz_layout.fragments.EndSceneFragment;
+import com.codecool.languagetutor.quiz_layout.fragments.QuantityChangerFragment;
 import com.codecool.languagetutor.quiz_layout.fragments.QuizFragment;
 import com.codecool.languagetutor.quiz_layout.fragments.WrongAnswerFragment;
 
@@ -24,11 +25,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizActivity extends AppCompatActivity implements QuizFragment.QuizInterface, EndSceneFragment.EndSceneInterface, WrongAnswerFragment.WrongAnswerInterface {
+public class QuizActivity extends AppCompatActivity implements QuizFragment.QuizInterface, EndSceneFragment.EndSceneInterface, WrongAnswerFragment.WrongAnswerInterface, QuantityChangerFragment.QuantityChangerInterface {
 
     QuizFragment quizFragment;
     EndSceneFragment endSceneFragment;
     WrongAnswerFragment wrongAnswerFragment;
+    QuantityChangerFragment quantityChangerFragment;
 
     List<French> words;
     private float countofQuestions;
@@ -50,13 +52,15 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
         quizFragment = new QuizFragment();
         endSceneFragment = new EndSceneFragment();
         wrongAnswerFragment = new WrongAnswerFragment();
+        quantityChangerFragment = new QuantityChangerFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.quiz_fragment, quizFragment)
+               // .replace(R.id.quiz_fragment, quizFragment)
                 .replace(R.id.wrong_answer_fragment,wrongAnswerFragment)
+                .replace(R.id.quantity_fragment,quantityChangerFragment)
                 .commit();
 
-        new DatabaseGetter(this).execute();
+      //  new DatabaseGetter(this).execute();
 
         //wrongAnswerFragment.hideThisFragment();
         progressText = findViewById(R.id.test);
@@ -79,10 +83,8 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
         words = frenchList;
         Collections.shuffle(words);
 
-        if ( words.size() <= 9){
+        if ( words.size() <= countofQuestions - 1){
             countofQuestions = words.size();
-        }else{
-            countofQuestions = 10;
         }
 
         percentPerQuestion = 100/countofQuestions;
@@ -161,5 +163,16 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
     @Override
     public void closeThisFragment() {
         wrongAnswerFragment.setMenuVisibility(false);
+    }
+
+    @Override
+    public void setQuantity(int quantity) {
+        countofQuestions = quantity;
+        new DatabaseGetter(this).execute();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.quiz_fragment,quizFragment)
+                .remove(getSupportFragmentManager().findFragmentById(R.id.quantity_fragment))
+                .commit();
     }
 }
