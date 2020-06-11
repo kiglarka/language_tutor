@@ -1,4 +1,4 @@
-package com.codecool.languagetutor.quiz_layout;
+package com.codecool.languagetutor.quiz_layout.fragments;
 
 import android.content.Context;
 import android.os.Bundle;

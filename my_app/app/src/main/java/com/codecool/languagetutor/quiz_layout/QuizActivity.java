@@ -2,30 +2,22 @@ package com.codecool.languagetutor.quiz_layout;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.room.Room;
 
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codecool.languagetutor.R;
-import com.codecool.languagetutor.db.DictRoomDatabase;
 import com.codecool.languagetutor.db.French;
-import com.codecool.languagetutor.db.FrenchDao;
 import com.codecool.languagetutor.quiz_layout.async_tasks.AnswerGetter;
 import com.codecool.languagetutor.quiz_layout.async_tasks.DatabaseGetter;
 import com.codecool.languagetutor.quiz_layout.async_tasks.SaveResult;
+import com.codecool.languagetutor.quiz_layout.fragments.EndSceneFragment;
+import com.codecool.languagetutor.quiz_layout.fragments.QuizFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,7 +51,7 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
                 .replace(R.id.quiz_fragment, quizFragment)
                 .commit();
 
-        new DatabaseGetter().execute(this);
+        new DatabaseGetter(this).execute();
 
         progressText = findViewById(R.id.test);
         progressBar = findViewById(R.id.progress);
@@ -133,9 +125,8 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
         }else{
             Toast errorToast = Toast.makeText(this, "not good", Toast.LENGTH_SHORT);
             errorToast.show();
+
         }
-
-
 
         if ( currentQuestion + 1 >= countofQuestions){
             loadEndScene();

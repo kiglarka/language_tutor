@@ -8,7 +8,6 @@ public class RoomRepository {
 
     private FrenchDao frenchDao;
 
-
     public RoomRepository(Context context) {
         this.frenchDao = DictRoomDatabase.getDatabase(context).frenchDao();
     }
@@ -19,6 +18,10 @@ public class RoomRepository {
 
     public List<French> getAllWords() {
         return frenchDao.getAlphabetizedTrips();
+    }
+
+    public List<French> getAllWordsExcept(int id){
+        return frenchDao.getWordsExcept(id);
     }
 
 }
