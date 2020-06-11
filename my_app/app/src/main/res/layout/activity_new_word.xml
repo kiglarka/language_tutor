@@ -2,10 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    tools:context=".myword.newword.NewWordActivity">
+    tools:context=".newword.NewWordActivity"
+    style="@style/default_parent">
 
     <TextView
         android:id="@+id/add_new_word"
@@ -19,6 +17,7 @@
 
     <EditText
         android:id="@+id/local_word"
+        android:hint="@string/english"
         android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +26,7 @@
 
     <EditText
         android:id="@+id/translation"
+        android:hint="@string/french"
         android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
