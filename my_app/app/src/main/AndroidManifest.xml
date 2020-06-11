@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/granny_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".quiz_layout.QuizActivity"></activity>
-        <activity android:name=".newword.NewWordActivity"></activity>
+        <activity android:name="com.codecool.quiz_sample.QuizSampleActivity"></activity>
+        <activity android:name=".quiz_layout.QuizActivity" />
+        <activity android:name=".newword.NewWordActivity" />
         <activity android:name=".myword.MyWordActivity" />
         <activity android:name=".ResultHistoryActivity" />
         <activity android:name=".main_activity.MainActivity">
