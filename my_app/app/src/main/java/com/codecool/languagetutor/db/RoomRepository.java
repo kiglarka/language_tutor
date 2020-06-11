@@ -7,18 +7,28 @@ import java.util.List;
 public class RoomRepository {
 
     private FrenchDao frenchDao;
+    private HistoryDao historyDao;
 
 
     public RoomRepository(Context context) {
         this.frenchDao = DictRoomDatabase.getDatabase(context).frenchDao();
+        this.historyDao = DictRoomDatabase.getDatabase(context).historyDao();
     }
 
-    public void insert(French french) {
+    public void saveWord(French french) {
         frenchDao.insert(french);
     }
 
+    public void saveHistory(History history) {
+        historyDao.insert(history);
+    }
+
     public List<French> getAllWords() {
-        return frenchDao.getAlphabetizedTrips();
+        return frenchDao.getAlphabetizedWords();
+    }
+
+    public List<History> getAllHistory() {
+        return historyDao.getAllHistory();
     }
 
 }

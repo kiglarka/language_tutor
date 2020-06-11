@@ -8,13 +8,11 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface FrenchDao {
+public interface HistoryDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(French french);
 
-    @Query("DELETE FROM french_table")
-    void deleteAll();
+    void insert(History history);
 
-    @Query("SELECT * from french_table ORDER BY localWord ASC")
-    List<French> getAlphabetizedWords();
+    @Query("SELECT * from history_table ORDER BY date DESC")
+    List<History> getAllHistory();
 }
