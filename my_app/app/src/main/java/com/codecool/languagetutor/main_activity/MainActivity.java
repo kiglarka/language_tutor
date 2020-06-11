@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Query;
 
 import com.codecool.languagetutor.R;
+import com.codecool.languagetutor.main_activity.async_tasks.GetDatabaseSize;
 import com.codecool.languagetutor.myword.MyWordActivity;
 import com.codecool.languagetutor.quiz_layout.QuizActivity;
 
@@ -42,10 +45,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         startQuizButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, QuizActivity.class);
-                startActivity(intent);
+                new GetDatabaseSize(MainActivity.this).execute();
             }
         });
+    }
+
+    public void provideQuizActivity(int tableSize){
+        if ( tableSize >= 4){
+            Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+            startActivity(intent);
+        }else{
+            Toast toast = Toast.makeText(this,"You should have at least 5 words to start quick quiz!",Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     private void setClickListenerOnMyWordsButton() {

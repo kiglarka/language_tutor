@@ -17,4 +17,8 @@ public interface FrenchDao {
 
     @Query("SELECT * from french_table ORDER BY localWord ASC")
     List<French> getAlphabetizedWords();
+    List<French> getAlphabetizedTrips();
+
+    @Query("SELECT * FROM french_table WHERE id NOT LIKE :id")
+    List<French> getWordsExcept(int id);
 }

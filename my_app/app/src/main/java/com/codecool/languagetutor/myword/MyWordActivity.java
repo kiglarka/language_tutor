@@ -64,16 +64,12 @@ public class MyWordActivity extends AppCompatActivity implements MyWordContract 
         });
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         presenter.loadAllWords();
 
     }
-
-
-
 
     @Override
     public void successfullyLoaded(List<French> frenches) {

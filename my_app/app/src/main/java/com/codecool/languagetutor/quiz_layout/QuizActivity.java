@@ -1,137 +1,178 @@
 package com.codecool.languagetutor.quiz_layout;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codecool.languagetutor.R;
+import com.codecool.languagetutor.db.French;
+import com.codecool.languagetutor.quiz_layout.async_tasks.AnswerGetter;
+import com.codecool.languagetutor.quiz_layout.async_tasks.DatabaseGetter;
+import com.codecool.languagetutor.quiz_layout.async_tasks.SaveResult;
+import com.codecool.languagetutor.quiz_layout.fragments.EndSceneFragment;
+import com.codecool.languagetutor.quiz_layout.fragments.QuantityChangerFragment;
+import com.codecool.languagetutor.quiz_layout.fragments.QuizFragment;
+import com.codecool.languagetutor.quiz_layout.fragments.WrongAnswerFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizActivity extends FragmentActivity {
+public class QuizActivity extends AppCompatActivity implements QuizFragment.QuizInterface, EndSceneFragment.EndSceneInterface, WrongAnswerFragment.WrongAnswerInterface, QuantityChangerFragment.QuantityChangerInterface {
 
-    RadioGroup radioGroup;
-    Button submitButton;
+    QuizFragment quizFragment;
+    EndSceneFragment endSceneFragment;
+    WrongAnswerFragment wrongAnswerFragment;
+    QuantityChangerFragment quantityChangerFragment;
 
-    TextView question;
+    List<French> words;
+    private float countofQuestions;
+    private float percentPerQuestion;
+    private float currentQuestion;
+    private float percent = 0;
+    private int goodSolutions = 0;
 
-    private int currentQuestion = 0;
-    private int countofQuestions = 0;
-    private int percent = 0;
-    private int percentPerQuestion;
-
-    private List<ExampleWordClass> words = new ArrayList<>();
+    TextView progressText;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        radioGroup = findViewById(R.id.radio_group);
-        submitButton = findViewById(R.id.submit_btn);
-        question = findViewById(R.id.question);
-        generateQuestions();
+
+        new SaveResult(this,0);
+
+        quizFragment = new QuizFragment();
+        endSceneFragment = new EndSceneFragment();
+        wrongAnswerFragment = new WrongAnswerFragment();
+        quantityChangerFragment = new QuantityChangerFragment();
+
+        getSupportFragmentManager().beginTransaction()
+               // .replace(R.id.quiz_fragment, quizFragment)
+                .replace(R.id.wrong_answer_fragment,wrongAnswerFragment)
+                .replace(R.id.quantity_fragment,quantityChangerFragment)
+                .commit();
+
+      //  new DatabaseGetter(this).execute();
+
+        //wrongAnswerFragment.hideThisFragment();
+        progressText = findViewById(R.id.test);
+        progressBar = findViewById(R.id.progress);
+
+
+    }
+
+    private void loadEndScene(){
+
+        progressText.setVisibility(View.INVISIBLE);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.quiz_fragment, endSceneFragment)
+                .commit();
+
+    }
+
+    public void generateQuestions(List<French> frenchList){
+        words = frenchList;
         Collections.shuffle(words);
 
-        if ( words.size() <= 9){
+        if ( words.size() <= countofQuestions - 1){
             countofQuestions = words.size();
-        }else {
-            countofQuestions = 10;
         }
 
         percentPerQuestion = 100/countofQuestions;
 
         updateQuestion();
-
+        updateProgressText();
     }
 
-    protected void generateQuestions(){
-        words.add(new ExampleWordClass("pénisz","penis"));
-        words.add(new ExampleWordClass("kutya", "doggo"));
-        words.add(new ExampleWordClass("cica","not doggo"));
-        words.add(new ExampleWordClass("nyúl","not doggo and not not doggo but actually not doggo"));
+    public void updateQuestion()
+    {
+        French currentWord = words.get((int) currentQuestion);
+        new AnswerGetter(this).execute(currentWord.getId());
     }
 
-    public void onSubmitClick(View view) throws InterruptedException {
-        int id = radioGroup.getCheckedRadioButtonId();
-        if (id == -1){
-            Toast errorToast = Toast.makeText(this, "Pick an answer!", Toast.LENGTH_SHORT);
-            errorToast.show();
-        }
+    public void fillAnswers(List<French> differentWords)
+    {
+        List<French> answers = new ArrayList<>();
+        answers.add(words.get((int) currentQuestion));
+        Collections.shuffle(differentWords);
 
-        onSubmit();
-    }
-
-    protected void updateQuestion(){
-        radioGroup.clearCheck();
-        question.setText(words.get(currentQuestion).getName());
-
-        List<String> answers = new ArrayList<>();
-        answers.add(words.get(currentQuestion).getMeaning());
-        List<ExampleWordClass> list = new ArrayList<>(words);
-        Collections.shuffle(list);
-        for ( int k = 0; k < list.size(); k++){
-            if ( !list.get(k).getMeaning().equals(words.get(currentQuestion).getMeaning())){
-                answers.add(list.get(k).getMeaning());
-            }
-            if ( answers.size() > 3 ){
-                break;
-            }
+        for ( int i = 0; i < 3; i++){
+            answers.add(differentWords.get(i));
         }
 
         Collections.shuffle(answers);
-        for (int i = 0; i <= 3; i++){
-            RadioButton x = (RadioButton)radioGroup.getChildAt(i);
-            x.setText(answers.get(i));
-        }
+
+        quizFragment.updateQuestion(answers, words.get((int) currentQuestion).getLocalWord());
     }
 
-    public void onSubmit() throws InterruptedException {
+    void updateProgressText(){
+        String progressText_ = ((int)currentQuestion + 1) + "/" + (int)countofQuestions;
+        progressText.setText(progressText_);
+    }
 
-        if ( currentQuestion >= words.size()){
-            hideQuiz();
-            return;
-        }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onRadioSubmit(int id) {
 
+        RadioButton radioButton = (RadioButton)findViewById(id);
 
-        int id = radioGroup.getCheckedRadioButtonId();
-        RadioButton radioButton = (RadioButton) findViewById(id);
-
-        if ( radioButton.getText().equals(words.get(currentQuestion).getMeaning())){
+        if ( radioButton.getText().equals(words.get((int) currentQuestion).getTranslation())){
             Toast errorToast = Toast.makeText(this, "Good", Toast.LENGTH_SHORT);
+            goodSolutions += 1;
             percent += percentPerQuestion;
             errorToast.show();
         }else{
             Toast errorToast = Toast.makeText(this, "not good", Toast.LENGTH_SHORT);
             errorToast.show();
+            wrongAnswerFragment.setMenuVisibility(true);
+            wrongAnswerFragment.setAnswer(words.get((int) currentQuestion).getTranslation());
         }
 
-        currentQuestion += 1;
-
-        if ( currentQuestion >= countofQuestions){
-            hideQuiz();
+        if ( currentQuestion + 1 >= countofQuestions){
+            loadEndScene();
+            progressBar.setVisibility(View.INVISIBLE);
         }else{
+            currentQuestion += 1;
+            updateProgressText();
             updateQuestion();
+            float progressPercent = (100/(float)countofQuestions)*(currentQuestion+1);
+            progressBar.setProgress((int)progressPercent,true);
         }
     }
 
-    protected void hideQuiz() throws InterruptedException {
-        radioGroup.setVisibility(View.INVISIBLE);
-        question.setText( Integer.toString(percent) + " %");
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    @Override
+    public void sceneCreated() {
+        endSceneFragment.setPercent(percent);
+    }
+
+    @Override
+    public void exitToMenu() {
+        new SaveResult(getApplicationContext(),(int)percent).execute();
+        finish();
+    }
+
+    @Override
+    public void closeThisFragment() {
+        wrongAnswerFragment.setMenuVisibility(false);
+    }
+
+    @Override
+    public void setQuantity(int quantity) {
+        countofQuestions = quantity;
+        new DatabaseGetter(this).execute();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.quiz_fragment,quizFragment)
+                .remove(getSupportFragmentManager().findFragmentById(R.id.quantity_fragment))
+                .commit();
     }
 }
