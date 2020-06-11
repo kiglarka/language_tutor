@@ -18,6 +18,7 @@ public class WrongAnswerFragment extends Fragment
 {
 
     WrongAnswerInterface wrongAnswerInterface;
+
     TextView answer;
     Button okButton;
 

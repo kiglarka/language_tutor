@@ -18,15 +18,21 @@ import androidx.fragment.app.Fragment;
 import com.codecool.languagetutor.R;
 import com.codecool.languagetutor.db.French;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class QuizFragment extends Fragment
 {
 
+    @BindView(R.id.radio_group)
     RadioGroup radioGroup;
+    @BindView(R.id.submit_btn)
     Button submitButton;
+    @BindView(R.id.question)
     TextView question;
+
     QuizInterface quizInterface;
 
     private Context context;
@@ -39,11 +45,9 @@ public class QuizFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.question_fragment, container,false);
-
+        ButterKnife.bind(this,container);
         boolean quizCompleted = false;
-        radioGroup = view.findViewById(R.id.radio_group);
-        submitButton = view.findViewById(R.id.submit_btn);
-        question = view.findViewById(R.id.question);
+
 
         submitButton.setOnClickListener(v -> {
             if ( !quizCompleted )

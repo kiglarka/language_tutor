@@ -2,7 +2,6 @@ package com.codecool.languagetutor.quiz_layout.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,16 @@ import androidx.fragment.app.Fragment;
 
 import com.codecool.languagetutor.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class EndSceneFragment extends Fragment {
 
+    @BindView(R.id.percent_txt)
     TextView percentView;
+    @BindView(R.id.final_button)
     Button submitButton;
+
     EndSceneInterface endSceneInterface;
 
     public interface EndSceneInterface{
@@ -30,8 +35,7 @@ public class EndSceneFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.quiz_end_scene,container,false);
-        percentView = v.findViewById(R.id.percent_txt);
-        submitButton = v.findViewById(R.id.final_button);
+        ButterKnife.bind(this, container);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
