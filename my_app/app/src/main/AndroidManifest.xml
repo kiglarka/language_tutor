@@ -12,7 +12,7 @@
         <activity android:name=".quiz_layout.QuizActivity" />
         <activity android:name=".newword.NewWordActivity" />
         <activity android:name=".myword.MyWordActivity" />
-        <activity android:name=".ResultHistoryActivity" />
+        <activity android:name=".history.HistoryActivity" />
         <activity android:name=".main_activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

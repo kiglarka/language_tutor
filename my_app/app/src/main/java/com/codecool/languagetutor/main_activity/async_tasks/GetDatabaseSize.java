@@ -27,6 +27,6 @@ public class GetDatabaseSize extends AsyncTask<Void,Void,Integer> {
     protected Integer doInBackground(Void... voids)
     {
         DictRoomDatabase database = DictRoomDatabase.getDatabase(context);
-        return database.frenchDao().getAlphabetizedTrips().size();
+        return database.frenchDao().getAlphabetizedWords().size();
     }
 }
