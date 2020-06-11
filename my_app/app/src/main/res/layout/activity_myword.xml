@@ -2,40 +2,58 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".myword.MyWordActivity"
-    style="@style/default_parent">
+    style="@style/default_parent"
+    tools:context=".myword.MyWordActivity">
+
+    <Button
+        android:id="@+id/btn_add_new_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="20dp"
-        android:id="@+id/inline_constraint"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/default_padding"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_new_word">
 
 
-        <Button
-            android:id="@+id/btn_add_new_word"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/col_english"
+            android:layout_width="184dp"
             android:layout_height="wrap_content"
-            android:text="@string/add_new"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:padding="@dimen/default_padding"
+            android:text="@string/english"
+            app:layout_constraintEnd_toStartOf="@+id/col_french"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/col_french"
+            android:layout_width="184dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/default_padding"
+            android:text="@string/french"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/col_english"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-    <TextView
-        android:id="@+id/show_dict"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        app:layout_constraintTop_toBottomOf="@id/inline_constraint"
-        android:gravity="center"
-        android:text="@string/sample_text" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
