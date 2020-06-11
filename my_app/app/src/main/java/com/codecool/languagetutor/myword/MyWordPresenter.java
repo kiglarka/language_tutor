@@ -12,7 +12,6 @@ public class MyWordPresenter<V extends MyWordContract> {
 
     V view;
     RoomRepository roomRepository;
-    private List<French> allFrench;
 
     public MyWordPresenter(Context context) {
         roomRepository = new RoomRepository(context);
@@ -30,7 +29,7 @@ public class MyWordPresenter<V extends MyWordContract> {
 
 
 
-    public void loadAllWords(){
+    void loadAllWords(){
             new ListAllFrenchAsyncTask().execute();
     }
 
@@ -50,5 +49,6 @@ public class MyWordPresenter<V extends MyWordContract> {
     }
 
 
-
+    public class ListAllHistory {
+    }
 }

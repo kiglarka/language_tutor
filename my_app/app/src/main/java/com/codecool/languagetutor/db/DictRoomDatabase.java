@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {French.class, History.class}, version = 2, exportSchema = false)
+@Database(entities = {French.class, History.class}, version = 3, exportSchema = false)
 public abstract class DictRoomDatabase extends RoomDatabase {
 
     public abstract FrenchDao frenchDao();
