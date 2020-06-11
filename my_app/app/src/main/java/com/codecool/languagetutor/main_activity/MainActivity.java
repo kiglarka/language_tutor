@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Query;
 
 import com.codecool.languagetutor.R;
+import com.codecool.languagetutor.history.HistoryActivity;
+import com.codecool.languagetutor.main_activity.async_tasks.GetDatabaseSize;
 import com.codecool.languagetutor.main_activity.async_tasks.GetDatabaseSize;
 import com.codecool.languagetutor.myword.MyWordActivity;
 import com.codecool.languagetutor.quiz_layout.QuizActivity;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     Button buttonMyWords;
     @BindView(R.id.btn_quiz)
     Button startQuizButton;
+    @BindView(R.id.btn_history)
+    Button historyButton;
 
     MainActivityPresenter presenter;
 
@@ -38,8 +42,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
         setClickListenerOnMyWordsButton();
         setClickListenerOnStartQuizButton();
+        setClickListenerOnHistoryButton();
 
     }
+
+    private void setClickListenerOnHistoryButton() {
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
 
     private void setClickListenerOnStartQuizButton() {
         startQuizButton.setOnClickListener(new View.OnClickListener() {

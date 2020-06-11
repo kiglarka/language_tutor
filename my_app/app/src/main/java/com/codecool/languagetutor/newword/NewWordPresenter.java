@@ -24,7 +24,7 @@ public class NewWordPresenter<V extends NewWordContract> {
 
         @Override
         protected Void doInBackground(French... frenches) {
-            roomRepository.insert(frenches[0]);
+            roomRepository.saveWord(frenches[0]);
             return null;
         }
 

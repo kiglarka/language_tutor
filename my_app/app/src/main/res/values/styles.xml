@@ -16,7 +16,7 @@
     <style name="default_parent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">#eeeeee</item>
-        <item name="android:padding">20dp</item>
+        <item name="android:padding">@dimen/default_padding</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 

@@ -11,10 +11,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {French.class}, version = 1, exportSchema = false)
+@Database(entities = {French.class, History.class}, version = 3, exportSchema = false)
 public abstract class DictRoomDatabase extends RoomDatabase {
 
     public abstract FrenchDao frenchDao();
+    public abstract HistoryDao historyDao();
 
 
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
@@ -28,13 +29,11 @@ public abstract class DictRoomDatabase extends RoomDatabase {
                 // Populate the database in the background.
                 FrenchDao dao = INSTANCE.frenchDao();
 
-                /*
+
                 French french = new French("man", "homme");
                 dao.insert(french);
                 french = new French("woman", "femme");
-                dao.insert(french);*/
-
-
+                dao.insert(french);
 
             });
         }
@@ -53,10 +52,12 @@ public abstract class DictRoomDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             DictRoomDatabase.class, "dict_database")
                             .addCallback(sRoomDatabaseCallback)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
         }
+
         return INSTANCE;
     }
 }
