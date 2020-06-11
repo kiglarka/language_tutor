@@ -82,7 +82,7 @@ public class QuizFragment extends Fragment
 
     public void updateQuestion(List<French> answers, String question){
         this.question.setText(question);
-
+        radioGroup.clearCheck();
         for (int i = 0; i < answers.size(); i++){
             RadioButton radioButton = (RadioButton)radioGroup.getChildAt(i);
             radioButton.setText(answers.get(i).getTranslation());

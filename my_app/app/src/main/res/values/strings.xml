@@ -13,4 +13,7 @@
     <string name="short_app_name">Tutor</string>
     <string name="quiz_completed">Quiz Completed</string>
     <string name="return_to_main_menu">Return to Main Menu</string>
+    <string name="wrong_answer">Wrong answer!</string>
+    <string name="the_good_solution_is">The good solution is:</string>
+    <string name="ok">Don\'t slap me!</string>
 </resources>

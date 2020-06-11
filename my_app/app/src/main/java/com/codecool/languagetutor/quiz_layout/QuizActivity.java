@@ -18,15 +18,18 @@ import com.codecool.languagetutor.quiz_layout.async_tasks.DatabaseGetter;
 import com.codecool.languagetutor.quiz_layout.async_tasks.SaveResult;
 import com.codecool.languagetutor.quiz_layout.fragments.EndSceneFragment;
 import com.codecool.languagetutor.quiz_layout.fragments.QuizFragment;
+import com.codecool.languagetutor.quiz_layout.fragments.WrongAnswerFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizActivity extends AppCompatActivity implements QuizFragment.QuizInterface, EndSceneFragment.EndSceneInterface {
+public class QuizActivity extends AppCompatActivity implements QuizFragment.QuizInterface, EndSceneFragment.EndSceneInterface, WrongAnswerFragment.WrongAnswerInterface {
 
     QuizFragment quizFragment;
     EndSceneFragment endSceneFragment;
+    WrongAnswerFragment wrongAnswerFragment;
+
     List<French> words;
     private float countofQuestions;
     private float percentPerQuestion;
@@ -46,13 +49,16 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
 
         quizFragment = new QuizFragment();
         endSceneFragment = new EndSceneFragment();
+        wrongAnswerFragment = new WrongAnswerFragment();
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.quiz_fragment, quizFragment)
+                .replace(R.id.wrong_answer_fragment,wrongAnswerFragment)
                 .commit();
 
         new DatabaseGetter(this).execute();
 
+        //wrongAnswerFragment.hideThisFragment();
         progressText = findViewById(R.id.test);
         progressBar = findViewById(R.id.progress);
 
@@ -125,7 +131,8 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
         }else{
             Toast errorToast = Toast.makeText(this, "not good", Toast.LENGTH_SHORT);
             errorToast.show();
-
+            wrongAnswerFragment.setMenuVisibility(true);
+            wrongAnswerFragment.setAnswer(words.get((int) currentQuestion).getTranslation());
         }
 
         if ( currentQuestion + 1 >= countofQuestions){
@@ -149,5 +156,10 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
     public void exitToMenu() {
         new SaveResult(getApplicationContext(),(int)percent).execute();
         finish();
+    }
+
+    @Override
+    public void closeThisFragment() {
+        wrongAnswerFragment.setMenuVisibility(false);
     }
 }

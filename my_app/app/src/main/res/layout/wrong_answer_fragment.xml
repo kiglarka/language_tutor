@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/red"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/wrong_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wrong_answer"
+
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.323" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/solution_txt"
+        android:text="@string/the_good_solution_is"
+        app:layout_constraintTop_toBottomOf="@id/wrong_txt"
+        app:layout_constraintLeft_toLeftOf="@id/wrong_txt"
+        app:layout_constraintRight_toRightOf="@id/wrong_txt"
+        android:layout_marginTop="10sp"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/the_good_answer"
+        app:layout_constraintTop_toBottomOf="@id/solution_txt"
+        app:layout_constraintLeft_toLeftOf="@id/solution_txt"
+        app:layout_constraintRight_toRightOf="@id/solution_txt"
+        android:layout_marginTop="15sp"
+        android:textSize="50dp"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        tools:text="KAKA"
+        />
+
+    <Button
+        android:id="@+id/ok_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/the_good_answer"
+        app:layout_constraintLeft_toLeftOf="@id/the_good_answer"
+        app:layout_constraintRight_toRightOf="@id/the_good_answer"
+        android:layout_marginTop="25sp"
+        android:text="@string/ok"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
