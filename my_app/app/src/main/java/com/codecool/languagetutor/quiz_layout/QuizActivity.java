@@ -25,6 +25,7 @@ import com.codecool.languagetutor.db.French;
 import com.codecool.languagetutor.db.FrenchDao;
 import com.codecool.languagetutor.quiz_layout.async_tasks.AnswerGetter;
 import com.codecool.languagetutor.quiz_layout.async_tasks.DatabaseGetter;
+import com.codecool.languagetutor.quiz_layout.async_tasks.SaveResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,17 +36,21 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
     QuizFragment quizFragment;
     EndSceneFragment endSceneFragment;
     List<French> words;
-    private int countofQuestions;
-    private int percentPerQuestion;
-    private int currentQuestion;
-    private int percent = 0;
+    private float countofQuestions;
+    private float percentPerQuestion;
+    private float currentQuestion;
+    private float percent = 0;
+    private int goodSolutions = 0;
 
+    TextView progressText;
     ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        new SaveResult(this,0);
 
         quizFragment = new QuizFragment();
         endSceneFragment = new EndSceneFragment();
@@ -56,11 +61,16 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
 
         new DatabaseGetter().execute(this);
 
+        progressText = findViewById(R.id.test);
         progressBar = findViewById(R.id.progress);
+
 
     }
 
     private void loadEndScene(){
+
+        progressText.setVisibility(View.INVISIBLE);
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.quiz_fragment, endSceneFragment)
                 .commit();
@@ -80,18 +90,19 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
         percentPerQuestion = 100/countofQuestions;
 
         updateQuestion();
+        updateProgressText();
     }
 
     public void updateQuestion()
     {
-        French currentWord = words.get(currentQuestion);
+        French currentWord = words.get((int) currentQuestion);
         new AnswerGetter(this).execute(currentWord.getId());
     }
 
     public void fillAnswers(List<French> differentWords)
     {
         List<French> answers = new ArrayList<>();
-        answers.add(words.get(currentQuestion));
+        answers.add(words.get((int) currentQuestion));
         Collections.shuffle(differentWords);
 
         for ( int i = 0; i < 3; i++){
@@ -100,7 +111,12 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
 
         Collections.shuffle(answers);
 
-        quizFragment.updateQuestion(answers, words.get(currentQuestion).getLocalWord());
+        quizFragment.updateQuestion(answers, words.get((int) currentQuestion).getLocalWord());
+    }
+
+    void updateProgressText(){
+        String progressText_ = ((int)currentQuestion + 1) + "/" + (int)countofQuestions;
+        progressText.setText(progressText_);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -109,8 +125,9 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
 
         RadioButton radioButton = (RadioButton)findViewById(id);
 
-        if ( radioButton.getText().equals(words.get(currentQuestion).getTranslation())){
+        if ( radioButton.getText().equals(words.get((int) currentQuestion).getTranslation())){
             Toast errorToast = Toast.makeText(this, "Good", Toast.LENGTH_SHORT);
+            goodSolutions += 1;
             percent += percentPerQuestion;
             errorToast.show();
         }else{
@@ -118,14 +135,17 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
             errorToast.show();
         }
 
-        currentQuestion += 1;
 
-        if ( currentQuestion >= countofQuestions){
+
+        if ( currentQuestion + 1 >= countofQuestions){
             loadEndScene();
             progressBar.setVisibility(View.INVISIBLE);
         }else{
+            currentQuestion += 1;
+            updateProgressText();
             updateQuestion();
-            progressBar.setProgress((100/countofQuestions)*(currentQuestion+1),true);
+            float progressPercent = (100/(float)countofQuestions)*(currentQuestion+1);
+            progressBar.setProgress((int)progressPercent,true);
         }
     }
 
@@ -136,6 +156,7 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
 
     @Override
     public void exitToMenu() {
+        new SaveResult(getApplicationContext(),(int)percent).execute();
         finish();
     }
 }

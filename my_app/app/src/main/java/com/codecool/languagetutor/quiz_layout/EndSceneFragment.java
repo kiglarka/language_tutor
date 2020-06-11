@@ -36,6 +36,7 @@ public class EndSceneFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 endSceneInterface.exitToMenu();
             }
         });
@@ -55,8 +56,9 @@ public class EndSceneFragment extends Fragment {
         endSceneInterface.sceneCreated();
     }
 
-    public void setPercent(int percent){
-        String percent_text = percent + " %";
+    public void setPercent(float percent){
+        int x = Math.round(percent);
+        String percent_text = (int)x + " %";
         percentView.setText(percent_text);
     }
 }
