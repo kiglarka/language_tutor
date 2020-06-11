@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,10 +22,12 @@ public class MyWordActivity extends AppCompatActivity implements MyWordContract 
     @BindView(R.id.btn_add_new_word)
     Button buttonNewWord;
 
-    /*
 
-    @BindView(R.id.col_english)
-    TextView showEnglish;
+
+
+    @BindView(R.id.textView)
+    TextView textView;
+    /*
     @BindView(R.id.col_french)
     TextView showFrench;
 
@@ -74,6 +77,8 @@ public class MyWordActivity extends AppCompatActivity implements MyWordContract 
 
     @Override
     public void successfullyLoaded(List<French> frenches) {
+        textView.setText(frenches.toString());
+
         /*
         showEnglish.setText(frenches.get(0).toString());
         showFrench.setText(frenches.get(1).toString());
