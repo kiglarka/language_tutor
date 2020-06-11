@@ -1,5 +1,6 @@
 package com.codecool.languagetutor.quiz_layout;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -7,10 +8,12 @@ import androidx.room.Room;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -27,30 +30,41 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizActivity extends FragmentActivity {
+public class QuizActivity extends AppCompatActivity implements QuizFragment.QuizInterface, EndSceneFragment.EndSceneInterface {
 
-    RadioGroup radioGroup;
-    Button submitButton;
-
-    TextView question;
-
-    private int currentQuestion = 0;
-    private int countofQuestions = 0;
-    private int percent = 0;
+    QuizFragment quizFragment;
+    EndSceneFragment endSceneFragment;
+    List<French> words;
+    private int countofQuestions;
     private int percentPerQuestion;
+    private int currentQuestion;
+    private int percent = 0;
 
-    private List<French> words = new ArrayList<>();
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        radioGroup = findViewById(R.id.radio_group);
-        submitButton = findViewById(R.id.submit_btn);
-        question = findViewById(R.id.question);
+        quizFragment = new QuizFragment();
+        endSceneFragment = new EndSceneFragment();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.quiz_fragment, quizFragment)
+                .commit();
 
         new DatabaseGetter().execute(this);
+
+        progressBar = findViewById(R.id.progress);
+
+    }
+
+    private void loadEndScene(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.quiz_fragment, endSceneFragment)
+                .commit();
+
     }
 
     public void generateQuestions(List<French> frenchList){
@@ -67,35 +81,32 @@ public class QuizActivity extends FragmentActivity {
 
         updateQuestion();
     }
-    
-    public void updateQuestion(){
-        radioGroup.clearCheck();
 
+    public void updateQuestion()
+    {
         French currentWord = words.get(currentQuestion);
-        question.setText(currentWord.getLocalWord());
-
         new AnswerGetter(this).execute(currentWord.getId());
     }
 
-    public void fillAnswers(List<French> different_words){
-
+    public void fillAnswers(List<French> differentWords)
+    {
         List<French> answers = new ArrayList<>();
         answers.add(words.get(currentQuestion));
-        Collections.shuffle(different_words);
+        Collections.shuffle(differentWords);
+
         for ( int i = 0; i < 3; i++){
-            answers.add(different_words.get(i));
+            answers.add(differentWords.get(i));
         }
 
         Collections.shuffle(answers);
 
-        for (int i = 0; i <= 3; i++){
-            RadioButton x = (RadioButton)radioGroup.getChildAt(i);
-            x.setText(answers.get(i).getTranslation());
-        }
+        quizFragment.updateQuestion(answers, words.get(currentQuestion).getLocalWord());
     }
 
-    public void onSubmitClick(View view) throws InterruptedException {
-        int id = radioGroup.getCheckedRadioButtonId();
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onRadioSubmit(int id) {
+
         RadioButton radioButton = (RadioButton)findViewById(id);
 
         if ( radioButton.getText().equals(words.get(currentQuestion).getTranslation())){
@@ -108,21 +119,23 @@ public class QuizActivity extends FragmentActivity {
         }
 
         currentQuestion += 1;
+
         if ( currentQuestion >= countofQuestions){
-            hideQuiz();
+            loadEndScene();
+            progressBar.setVisibility(View.INVISIBLE);
         }else{
             updateQuestion();
+            progressBar.setProgress((100/countofQuestions)*(currentQuestion+1),true);
         }
     }
 
-    protected void hideQuiz() throws InterruptedException {
-        radioGroup.setVisibility(View.INVISIBLE);
-        question.setText( Integer.toString(percent) + " %");
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    @Override
+    public void sceneCreated() {
+        endSceneFragment.setPercent(percent);
+    }
+
+    @Override
+    public void exitToMenu() {
+        finish();
     }
 }

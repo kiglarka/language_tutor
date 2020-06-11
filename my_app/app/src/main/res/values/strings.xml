@@ -11,4 +11,6 @@
     <string name="please_enter_a_new_word_pair">Please enter a new word pair</string>
     <string name="save">Save</string>
     <string name="short_app_name">Tutor</string>
+    <string name="quiz_completed">Quiz Completed</string>
+    <string name="return_to_main_menu">Return to Main Menu</string>
 </resources>
