@@ -2,14 +2,10 @@ package com.codecool.languagetutor.quiz_layout.async_tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.DisplayMetrics;
-import android.util.Log;
 
-import com.codecool.languagetutor.db.DictRoomDatabase;
 import com.codecool.languagetutor.db.RoomRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -30,7 +26,7 @@ public class SaveResult extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        // SAVE TO DB THE RESULTS
+        // SAVE TO DB THE
         return null;
     }
 }

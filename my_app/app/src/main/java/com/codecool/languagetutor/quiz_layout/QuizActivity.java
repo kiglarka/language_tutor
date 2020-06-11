@@ -1,8 +1,5 @@
 package com.codecool.languagetutor.quiz_layout;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +7,9 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.codecool.languagetutor.R;
 import com.codecool.languagetutor.db.French;
@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class QuizActivity extends AppCompatActivity implements QuizFragment.QuizInterface, EndSceneFragment.EndSceneInterface, WrongAnswerFragment.WrongAnswerInterface, QuantityChangerFragment.QuantityChangerInterface {
 
     QuizFragment quizFragment;
@@ -39,13 +42,16 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
     private float percent = 0;
     private int goodSolutions = 0;
 
+    @BindView(R.id.test)
     TextView progressText;
+    @BindView(R.id.progress)
     ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        ButterKnife.bind(this);
 
         new SaveResult(this,0);
 
@@ -59,13 +65,6 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
                 .replace(R.id.wrong_answer_fragment,wrongAnswerFragment)
                 .replace(R.id.quantity_fragment,quantityChangerFragment)
                 .commit();
-
-      //  new DatabaseGetter(this).execute();
-
-        //wrongAnswerFragment.hideThisFragment();
-        progressText = findViewById(R.id.test);
-        progressBar = findViewById(R.id.progress);
-
 
     }
 
