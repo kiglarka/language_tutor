@@ -22,7 +22,7 @@ public class HistoryPresenter<V extends HistoryContract> {
 
 
 
-    void loadAllWords(){
+    void loadAllHistory(){
         new ListAllHistory().execute();
     }
 

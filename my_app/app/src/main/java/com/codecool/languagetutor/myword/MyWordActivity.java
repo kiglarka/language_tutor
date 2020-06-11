@@ -47,12 +47,9 @@ public class MyWordActivity extends AppCompatActivity implements MyWordContract 
     }
 
     private void setClickListenerOnNewWordButton() {
-        buttonNewWord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyWordActivity.this, NewWordActivity.class);
-                startActivity(intent);
-            }
+        buttonNewWord.setOnClickListener(v -> {
+            Intent intent = new Intent(MyWordActivity.this, NewWordActivity.class);
+            startActivity(intent);
         });
     }
 

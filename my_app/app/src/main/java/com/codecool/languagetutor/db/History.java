@@ -8,7 +8,10 @@ import androidx.room.PrimaryKey;
 @Entity (tableName = "history_table")
 public class History {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+
     @NonNull
     private String date;
     private int percentage;
@@ -31,5 +34,13 @@ public class History {
 
     public String getIncorrectGuesses() {
         return incorrectGuesses;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

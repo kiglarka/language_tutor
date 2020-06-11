@@ -47,8 +47,4 @@ public class MyWordPresenter<V extends MyWordContract> {
             view.successfullyLoaded(frenches);
         }
     }
-
-
-    public class ListAllHistory {
-    }
 }

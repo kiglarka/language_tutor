@@ -37,17 +37,19 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
     private float percentPerQuestion;
     private float currentQuestion;
     private float percent = 0;
-    private int goodSolutions = 0;
+
+    private StringBuilder incorrectList = new StringBuilder();
 
     TextView progressText;
     ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        new SaveResult(this,0);
+        //new SaveResult(this,0);
 
         quizFragment = new QuizFragment();
         endSceneFragment = new EndSceneFragment();
@@ -65,8 +67,6 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
         //wrongAnswerFragment.hideThisFragment();
         progressText = findViewById(R.id.test);
         progressBar = findViewById(R.id.progress);
-
-
     }
 
     private void loadEndScene(){
@@ -127,12 +127,12 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
 
         if ( radioButton.getText().equals(words.get((int) currentQuestion).getTranslation())){
             Toast errorToast = Toast.makeText(this, "Good", Toast.LENGTH_SHORT);
-            goodSolutions += 1;
             percent += percentPerQuestion;
             errorToast.show();
         }else{
             Toast errorToast = Toast.makeText(this, "not good", Toast.LENGTH_SHORT);
             errorToast.show();
+            incorrectList.append(words.get((int)currentQuestion).getLocalWord()).append(", ");
             wrongAnswerFragment.setMenuVisibility(true);
             wrongAnswerFragment.setAnswer(words.get((int) currentQuestion).getTranslation());
         }
@@ -156,7 +156,8 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Quiz
 
     @Override
     public void exitToMenu() {
-        new SaveResult(getApplicationContext(),(int)percent).execute();
+
+        new SaveResult(getApplicationContext(),(int)percent, incorrectList.toString()).execute();
         finish();
     }
 
