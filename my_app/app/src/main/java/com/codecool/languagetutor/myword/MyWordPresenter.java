@@ -17,17 +17,8 @@ public class MyWordPresenter<V extends MyWordContract> {
         roomRepository = new RoomRepository(context);
     }
 
-    /*
-    public List<French> getAllFrench() {
-        return allFrench;
-    }
-
-     */
-
     void onAttach(V view){ this.view = view; }
     void onDetach() { this.view = null; }
-
-
 
     void loadAllWords(){
             new ListAllFrenchAsyncTask().execute();

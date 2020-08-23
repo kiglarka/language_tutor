@@ -46,6 +46,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
 
     }
 
+    @Override
+    public void provideQuizActivity(int tableSize){
+        if ( tableSize >= 4){
+            Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+            startActivity(intent);
+        }else{
+            Toast toast = Toast.makeText(this,"You should have at least 5 words to start quick quiz!",Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
     private void setClickListenerOnHistoryButton() {
         historyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,16 +77,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
         });
     }
 
-    public void provideQuizActivity(int tableSize){
-        if ( tableSize >= 4){
-            Intent intent = new Intent(MainActivity.this, QuizActivity.class);
-            startActivity(intent);
-        }else{
-            Toast toast = Toast.makeText(this,"You should have at least 5 words to start quick quiz!",Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    }
-
     private void setClickListenerOnMyWordsButton() {
         buttonMyWords.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +86,4 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
             }
         });
     }
-
-
-
 }
