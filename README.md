@@ -1,8 +1,14 @@
 # Language Tutor
 
-## Story
+## Description
 
 Your favorite cousin just started a language course in their high school and asked you to help with practicing. They are on their phone all the time, so you decide to write a Language Tutor app for them. You don't want to include an initial vocabulary database, just to make it easily extendable so that the students can add the new words and expressions they learn each week. The school has a wide international network, and you hope that you'll have a broader audience, so don't forget about proper localization!
+
+## Screenshots
+
+### MainActivity
+
+![MainActivity](https://github.com/kiglarka/language_tutor/blob/master/temp/lt_01.png?raw=true "This is the title")
 
 ## What are you going to learn?
 
